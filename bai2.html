@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards with Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard, .quiz-card {
+            width: 300px;
+            margin: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .flashcard:hover, .quiz-card:hover {
+            background-color: #e0f7fa;
+            border-color: #26a69a;
+        }
+        #quiz-section {
+            display: none;
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #26a69a;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1e8577;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flashcards and Quiz</h1>
+
+    <div id="flashcard-section">
+        <script>
+            const words = [
+    {"word": "Tournament", "phonetic": "/ˈtɔːnəmənt/", "meaning": "Giải đấu, vòng thi đấu"},
+    {"word": "Champion", "phonetic": "/ˈʧæmpiən/", "meaning": "Nhà vô địch"},
+    {"word": "Competition", "phonetic": "/ˌkɒmpɪˈtɪʃn/", "meaning": "Cuộc thi, trận thi đấu"},
+    {"word": "Athletic", "phonetic": "/æθˈletɪk/", "meaning": "Điền kinh"},
+    {"word": "Participant", "phonetic": "/pɑːˈtɪsɪpənt/", "meaning": "Người tham gia"},
+    {"word": "Spirit", "phonetic": "/ˈspɪrɪt/", "meaning": "Tinh thần"},
+    {"word": "Solidarity", "phonetic": "/ˌsɒlɪˈdærəti/", "meaning": "Sự đoàn kết"},
+    {"word": "Cooperation", "phonetic": "/ˌkəʊɒpəˈreɪʃn/", "meaning": "Sự hợp tác"},
+    {"word": "Defeat", "phonetic": "/dɪˈfiːt/", "meaning": "Đánh bại"},
+    {"word": "Budget", "phonetic": "/ˈbʌdʒɪt/", "meaning": "Ngân sách"},
+    {"word": "Hold", "phonetic": "/həʊld/", "meaning": "Tổ chức"},
+    {"word": "Milestone", "phonetic": "/ˈmaɪlstəʊn/", "meaning": "Cột mốc, sự kiện quan trọng"},
+    {"word": "Volunteer", "phonetic": "/ˌvɒlənˈtɪə(r)/", "meaning": "Tình nguyện, xung phong"},
+    {"word": "Sponsor", "phonetic": "/ˈspɒnsə(r)/", "meaning": "Tài trợ"},
+    {"word": "Preparation", "phonetic": "/ˌprepəˈreɪʃn/", "meaning": "Sự chuẩn bị"}
+]
+;
+
+            document.write(words.map(({ word, meaning }) =>
+                `<div class="flashcard" onclick="toggleCard(this)" data-word="${word}" data-meaning="${meaning}">
+                    ${word}
+                </div>`).join(''));
+
+            function toggleCard(card) {
+                const currentText = card.innerText;
+                const word = card.getAttribute("data-word");
+                const meaning = card.getAttribute("data-meaning");
+                card.innerText = currentText === word ? meaning : word;
+            }
+        </script>
+    </div>
+
+    <button onclick="startQuiz()">Bắt đầu kiểm tra</button>
+
+    <div id="quiz-section">
+        <div id="quiz-card" class="quiz-card"></div>
+        <input id="quiz-input" type="text" placeholder="Nhập từ tiếng Anh" onkeypress="handleEnter(event)" />
+        <button onclick="checkAnswer()">Kiểm tra</button>
+        <p id="quiz-feedback"></p>
+    </div>
+
+    <script>
+        let currentQuizIndex = 0;
+
+        function startQuiz() {
+            document.getElementById("flashcard-section").style.display = "none";
+            document.getElementById("quiz-section").style.display = "block";
+            showQuiz();
+        }
+
+        function showQuiz() {
+            const quizCard = document.getElementById("quiz-card");
+            const quizInput = document.getElementById("quiz-input");
+            const feedback = document.getElementById("quiz-feedback");
+
+            quizCard.innerText = words[currentQuizIndex].meaning;
+            quizInput.value = "";
+            feedback.innerText = "";
+        }
+
+        function checkAnswer() {
+            const userInput = document.getElementById("quiz-input").value.trim().toLowerCase();
+            const correctAnswer = words[currentQuizIndex].word.toLowerCase();
+            const feedback = document.getElementById("quiz-feedback");
+
+            if (userInput === correctAnswer) {
+                feedback.style.color = "green";
+                feedback.innerText = "Chính xác!";
+                currentQuizIndex = (currentQuizIndex + 1) % words.length;
+                setTimeout(showQuiz, 1000);
+            } else {
+                feedback.style.color = "red";
+                feedback.innerText = `Sai rồi! Đáp án đúng là "${words[currentQuizIndex].word}".`;
+            }
+        }
+        function handleEnter(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        }
+    </script>
+</body>
+</html>
