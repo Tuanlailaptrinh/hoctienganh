@@ -65,44 +65,40 @@
     <div id="flashcard-section">
         <script>
 const words = [
-
-
-[
-{"word": "Be in charge of sth", "meaning": "Phụ trách việc gì"},
-    {"word": "Attract one’s attention", "meaning": "Thu hút sự chú ý của ai"},
-    {"word": "Draw attention to sth", "meaning": "Đưa ra, đề cập đến điều gì"},
-    {"word": "Afford to do sth", "meaning": "Đủ khả năng để làm việc gì"},
-    {"word": "Put up", "meaning": "Dựng lên (vật chất); để tâm (việc gì)"},
-    {"word": "Pay attention to sth", "meaning": "Chú ý đến điều gì"},
-    {"word": "Mean to do sth", "meaning": "Có ý định làm việc gì"},
-    {"word": "Mean doing sth", "meaning": "Có nghĩa là phải làm việc gì"}
-    {"word": "Connect with sb", "meaning": "Kết nối với ai"},
-    {"word": "Have a big social media presence", "meaning": "Có sự hiện diện lớn trên mạng xã hội"},
-    {"word": "Offer discounts for sth", "meaning": "Giảm giá cho cái gì"},
-    {"word": "Make a strong impression on sb", "meaning": "Gây ấn tượng mạnh mẽ với ai"},
-    {"word": "In favor of sth", "meaning": "Ủng hộ cái gì"},
-    {"word": "Force sb to do sth", "meaning": "Ép ai làm gì"},
-    {"word": "Be guilty/innocent of sth", "meaning": "Có tội/vô tội về việc gì"},
-    {"word": "See a sharp rise in sth", "meaning": "Chứng kiến sự gia tăng mạnh mẽ"},
-    {"word": "Raise the question of sth", "meaning": "Đặt ra câu hỏi về điều gì"},
-    {"word": "By/in contrast", "meaning": "Ngược lại"},
-    {"word": "On the other hand", "meaning": "Mặt khác"},
-    {"word": "Access to sth", "meaning": "Sự truy cập, tiếp cận cái gì"},
-    {"word": "Struggle with sth", "meaning": "Đấu tranh với điều gì"},
-    {"word": "Here to stay", "meaning": "Được chấp nhận, được sử dụng"},
-    {"word": "Free of charge", "meaning": "Miễn phí"},
-    {"word": "Be harmful to sth", "meaning": "Có hại cho cái gì"},
-    {"word": "Raise/heighten/increase awareness of sth", "meaning": "Nâng cao nhận thức về điều gì"},
-    {"word": "Be popular with/among sb", "meaning": "Phổ biến với ai"},
-    {"word": "In general", "meaning": "Nhìn chung"},
-    {"word": "As opposed to sth", "meaning": "Trái với, tương phản với"},
-    {"word": "Warn sb of/about sth", "meaning": "Cảnh báo ai đó về điều gì"},
-    {"word": "Alert sb to sth", "meaning": "Cảnh báo ai về điều gì"}
-]
-
-
-
+    [
+        {"word": "Be in charge of sth", "meaning": "Phụ trách việc gì"},
+        {"word": "Attract one’s attention", "meaning": "Thu hút sự chú ý của ai"},
+        {"word": "Draw attention to sth", "meaning": "Đưa ra, đề cập đến điều gì"},
+        {"word": "Afford to do sth", "meaning": "Đủ khả năng để làm việc gì"},
+        {"word": "Put up", "meaning": "Dựng lên (vật chất); để tâm (việc gì)"},
+        {"word": "Pay attention to sth", "meaning": "Chú ý đến điều gì"},
+        {"word": "Mean to do sth", "meaning": "Có ý định làm việc gì"},
+        {"word": "Mean doing sth", "meaning": "Có nghĩa là phải làm việc gì"}, // <-- Thêm dấu phẩy ở đây
+        {"word": "Connect with sb", "meaning": "Kết nối với ai"},
+        {"word": "Have a big social media presence", "meaning": "Có sự hiện diện lớn trên mạng xã hội"},
+        {"word": "Offer discounts for sth", "meaning": "Giảm giá cho cái gì"},
+        {"word": "Make a strong impression on sb", "meaning": "Gây ấn tượng mạnh mẽ với ai"},
+        {"word": "In favor of sth", "meaning": "Ủng hộ cái gì"},
+        {"word": "Force sb to do sth", "meaning": "Ép ai làm gì"},
+        {"word": "Be guilty/innocent of sth", "meaning": "Có tội/vô tội về việc gì"},
+        {"word": "See a sharp rise in sth", "meaning": "Chứng kiến sự gia tăng mạnh mẽ"},
+        {"word": "Raise the question of sth", "meaning": "Đặt ra câu hỏi về điều gì"},
+        {"word": "By/in contrast", "meaning": "Ngược lại"},
+        {"word": "On the other hand", "meaning": "Mặt khác"},
+        {"word": "Access to sth", "meaning": "Sự truy cập, tiếp cận cái gì"},
+        {"word": "Struggle with sth", "meaning": "Đấu tranh với điều gì"},
+        {"word": "Here to stay", "meaning": "Được chấp nhận, được sử dụng"},
+        {"word": "Free of charge", "meaning": "Miễn phí"},
+        {"word": "Be harmful to sth", "meaning": "Có hại cho cái gì"},
+        {"word": "Raise/heighten/increase awareness of sth", "meaning": "Nâng cao nhận thức về điều gì"},
+        {"word": "Be popular with/among sb", "meaning": "Phổ biến với ai"},
+        {"word": "In general", "meaning": "Nhìn chung"},
+        {"word": "As opposed to sth", "meaning": "Trái với, tương phản với"},
+        {"word": "Warn sb of/about sth", "meaning": "Cảnh báo ai đó về điều gì"},
+        {"word": "Alert sb to sth", "meaning": "Cảnh báo ai về điều gì"}
+    ]
 ];
+
 const shuffledFlashcards = [...words].sort(() => Math.random() - 0.5);
 document.write(shuffledFlashcards.map(({ word, meaning }) =>
                 `<div class="flashcard" onclick="toggleCard(this)" data-word="${word}" data-meaning="${meaning}">
