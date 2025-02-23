@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bấm Giờ Boxing</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
+        #timer { font-size: 4rem; margin: 20px; }
+        button { font-size: 1.5rem; margin: 10px; padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Bấm Giờ Boxing</h1>
+    <div>
+        <label for="rounds">Số hiệp:</label>
+        <input type="number" id="rounds" value="3" min="1">
+        <label for="roundTime">Thời gian hiệp (giây):</label>
+        <input type="number" id="roundTime" value="180" min="10">
+        <label for="restTime">Thời gian nghỉ (giây):</label>
+        <input type="number" id="restTime" value="60" min="10">
+    </div>
+    <h2 id="status">Sẵn sàng</h2>
+    <div id="timer">00:00</div>
+    <button onclick="startTimer()">Bắt đầu</button>
+    <button onclick="resetTimer()">Dừng</button>
+    
+    <audio id="bellSound" src="boxing-bell.mp3"></audio>
+    <audio id="restSound" src="boxing-bell.mp3"></audio>
+    
+    <script>
+        let rounds, roundTime, restTime, currentRound, isResting, timer;
+        function startTimer() {
+            rounds = parseInt(document.getElementById('rounds').value);
+            roundTime = parseInt(document.getElementById('roundTime').value);
+            restTime = parseInt(document.getElementById('restTime').value);
+            currentRound = 1;
+            isResting = false;
+            nextPhase(roundTime);
+        }
+        function nextPhase(time) {
+            if (currentRound > rounds) {
+                document.getElementById('status').innerText = 'Hoàn thành!';
+                document.getElementById('timer').innerText = '00:00';
+                return;
+            }
+            let remainingTime = time;
+            document.getElementById('status').innerText = isResting ? `Nghỉ giữa hiệp ${currentRound}` : `Hiệp ${currentRound}`;
+            if (isResting) {
+                document.getElementById('restSound').play();
+            } else {
+                document.getElementById('bellSound').play();
+            }
+            updateDisplay(remainingTime);
+            timer = setInterval(() => {
+                remainingTime--;
+                updateDisplay(remainingTime);
+                if (remainingTime <= 0) {
+                    clearInterval(timer);
+                    isResting = !isResting;
+                    if (isResting) {
+                        nextPhase(restTime);
+                    } else {
+                        currentRound++;
+                        nextPhase(roundTime);
+                    }
+                }
+            }, 1000);
+        }
+        function updateDisplay(time) {
+            const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+            const seconds = String(time % 60).padStart(2, '0');
+            document.getElementById('timer').innerText = `${minutes}:${seconds}`;
+        }
+        function resetTimer() {
+            clearInterval(timer);
+            document.getElementById('status').innerText = 'Sẵn sàng';
+            document.getElementById('timer').innerText = '00:00';
+        }
+    </script>
+</body>
+</html>
