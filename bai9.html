@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards and Matching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard, .matching-item {
+            width: 300px;
+            margin: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .flashcard:hover, .matching-item:hover {
+            background-color: #e0f7fa;
+            border-color: #26a69a;
+        }
+        #matching-section {
+            display: none;
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #26a69a;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1e8577;
+        }
+        .matching-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .matching-item {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flashcards and Matching</h1>
+
+    <div id="flashcard-section">
+        <script>
+const words = [
+
+
+ {"word": "Endangered", "pronunciation": "/ɪnˈdeɪndʒərd/", "type": "adj", "meaning": "Có nguy cơ tuyệt chủng"},
+    {"word": "Dangerous", "pronunciation": "/ˈdeɪndʒərəs/", "type": "adj", "meaning": "Nguy hiểm"},
+    {"word": "Danger", "pronunciation": "/ˈdeɪndʒər/", "type": "n", "meaning": "Sự nguy hiểm"},
+    {"word": "Primates", "pronunciation": "/ˈpraɪmeɪt/", "type": "n", "meaning": "Linh trưởng"},
+    {"word": "Enclose", "pronunciation": "/ɪnˈkloʊz/", "type": "v", "meaning": "Rào quanh"},
+    {"word": "Enclosure", "pronunciation": "/ɪnˈkloʊʒər/", "type": "n", "meaning": "Khu bảo tồn, khu vực có rào bao quanh"},
+    {"word": "Mammal", "pronunciation": "/ˈmæməl/", "type": "n", "meaning": "Động vật có vú"},
+    {"word": "Ape", "pronunciation": "/eɪp/", "type": "n", "meaning": "Khỉ không đuôi"},
+    {"word": "Represent", "pronunciation": "/ˌrɛprɪˈzɛnt/", "type": "v", "meaning": "Đại diện"},
+    {"word": "Gibbon", "pronunciation": "/ˈɡɪbən/", "type": "n", "meaning": "Vượn"},
+    {"word": "Threat", "pronunciation": "/θrɛt/", "type": "n", "meaning": "Mối đe dọa"},
+    {"word": "Threaten", "pronunciation": "/ˈθrɛtən/", "type": "v", "meaning": "Hăm dọa, đe dọa"},
+    {"word": "Habitat loss", "pronunciation": "/ˈhæbɪtæt lɔs/", "type": "np", "meaning": "Mất môi trường sống"},
+    {"word": "Deforestation", "pronunciation": "/ˌdiːˌfɔːrɪˈsteɪʃən/", "type": "n", "meaning": "Nạn phá rừng"},
+    {"word": "Illegal hunting", "pronunciation": "/ɪˈliːɡəl ˈhʌntɪŋ/", "type": "np", "meaning": "Săn bắn bất hợp pháp"},
+    {"word": "Poaching", "pronunciation": "/ˈpoʊʧɪŋ/", "type": "n", "meaning": "Săn bắt trộm"},
+    {"word": "Poacher", "pronunciation": "/ˈpoʊʧər/", "type": "n", "meaning": "Kẻ săn trộm"},
+    {"word": "Veterinarian", "pronunciation": "/ˌvɛtərəˈnɛriən/", "type": "n", "meaning": "Bác sĩ thú y"},
+    {"word": "Release", "pronunciation": "/rɪˈliːs/", "type": "v", "meaning": "Giải phóng, phóng thích"},
+    {"word": "Critically endangered species", "pronunciation": "/ˈkrɪtɪkli ɪnˈdeɪndʒərd ˈspiːʃiːz/", "type": "np", "meaning": "Loài có nguy cơ tuyệt chủng cao"},
+    {"word": "Extinct", "pronunciation": "/ɪkˈstɪŋkt/", "type": "adj", "meaning": "Tuyệt chủng"},
+    {"word": "Extinction", "pronunciation": "/ɪkˈstɪŋkʃən/", "type": "n", "meaning": "Sự tuyệt chủng"},
+    {"word": "Survive", "pronunciation": "/sərˈvaɪv/", "type": "v", "meaning": "Tồn tại, sống sót"},
+    {"word": "Survival", "pronunciation": "/sərˈvaɪvəl/", "type": "n", "meaning": "Sự sống sót"},
+    {"word": "Survivor", "pronunciation": "/sərˈvaɪvər/", "type": "n", "meaning": "Người sống sót"},
+    {"word": "Capacity", "pronunciation": "/kəˈpæsɪti/", "type": "n", "meaning": "Dung tích, thể tích"},
+    {"word": "Conserve", "pronunciation": "/kənˈsɜːrv/", "type": "v", "meaning": "Bảo tồn, giữ gìn"},
+    {"word": "Conservation", "pronunciation": "/ˌkɑːnsərˈveɪʃən/", "type": "n", "meaning": "Sự bảo tồn"},
+    {"word": "Coral reef", "pronunciation": "/ˈkɔrəl riːf/", "type": "np", "meaning": "Rạn san hô"},
+    {"word": "Vulnerable", "pronunciation": "/ˈvʌlnərəbl/", "type": "adj", "meaning": "Dễ bị tổn thương"},
+    {"word": "Spawn", "pronunciation": "/spɔːn/", "type": "v", "meaning": "Đẻ trứng"},
+    {"word": "Rescue", "pronunciation": "/ˈrɛskjuː/", "type": "v", "meaning": "Giải thoát, giải cứu"},
+    {"word": "Dramatically", "pronunciation": "/drəˈmætɪkli/", "type": "adv", "meaning": "Đáng kể, nghiêm trọng"},
+    {"word": "Restore", "pronunciation": "/rɪˈstɔːr/", "type": "v", "meaning": "Khôi phục, phục hồi"},
+    {"word": "Ecosystem", "pronunciation": "/ˈiːkoʊˌsɪstəm/", "type": "n", "meaning": "Hệ sinh thái"},
+    {"word": "Marine debris", "pronunciation": "/məˈriːn dɪˈbriː/", "type": "np", "meaning": "Rác biển"},
+    {"word": "Nursery", "pronunciation": "/ˈnɜːrsəri/", "type": "n", "meaning": "Nơi dùng để nuôi dưỡng, bảo vệ, phát triển"},
+    {"word": "Biodiversity", "pronunciation": "/ˌbaɪoʊdaɪˈvɜːrsɪti/", "type": "n", "meaning": "Sự đa dạng sinh học"},
+    {"word": "Degrade", "pronunciation": "/dɪˈɡreɪd/", "type": "v", "meaning": "Làm suy thoái"},
+    {"word": "Forest clearance", "pronunciation": "/ˈfɔːrɪst ˈklɪərəns/", "type": "np", "meaning": "Tàn phá rừng, khai thác rừng bất hợp pháp"},
+    {"word": "Criteria", "pronunciation": "/kraɪˈtɪriə/", "type": "n", "meaning": "(Số nhiều) tiêu chuẩn, tiêu chí"}
+        
+
+];
+const shuffledFlashcards = [...words].sort(() => Math.random() - 0.5);
+document.write(shuffledFlashcards.map(({ word, meaning }) =>
+                `<div class="flashcard" onclick="toggleCard(this)" data-word="${word}" data-meaning="${meaning}">
+                    ${word}
+                </div>`).join(''));
+
+
+         function toggleCard(card) {
+                const currentText = card.innerText;
+                const word = card.getAttribute("data-word");
+                const meaning = card.getAttribute("data-meaning");
+                card.innerText = currentText === word ? meaning : word;
+            }
+        </script>
+    </div>
+
+    <button onclick="startMatching()">Bài tập nối chữ</button>
+
+    <div id="matching-section">
+        <div class="matching-container" id="matching-container"></div>
+    </div>
+
+    <script>
+        function startMatching() {
+            document.getElementById("flashcard-section").style.display = "none";
+            document.getElementById("matching-section").style.display = "block";
+
+            const shuffledWords = [...words].sort(() => Math.random() - 0.5);
+            const shuffledMeanings = [...words].sort(() => Math.random() - 0.5);
+
+            const matchingContainer = document.getElementById("matching-container");
+            matchingContainer.innerHTML =
+                shuffledWords.map(({ word }) => `<div class="matching-item" data-type="word">${word}</div>`).join('') +
+                shuffledMeanings.map(({ meaning }) => `<div class="matching-item" data-type="meaning">${meaning}</div>`).join('');
+
+            let selectedItems = [];
+
+            function selectMatchingItem(item) {
+                if (item.classList.contains("selected")) return;
+                item.classList.add("selected");
+                selectedItems.push(item);
+
+                if (selectedItems.length === 2) {
+                    const [item1, item2] = selectedItems;
+                    const isMatch =
+                        (item1.getAttribute("data-type") === "word" && item2.getAttribute("data-type") === "meaning" &&
+                            words.find(w => w.word === item1.innerText && w.meaning === item2.innerText)) ||
+                        (item1.getAttribute("data-type") === "meaning" && item2.getAttribute("data-type") === "word" &&
+                            words.find(w => w.meaning === item1.innerText && w.word === item2.innerText));
+
+                    if (isMatch) {
+                        item1.style.backgroundColor = "#d4edda";
+                        item2.style.backgroundColor = "#d4edda";
+                        item1.style.pointerEvents = "none";
+                        item2.style.pointerEvents = "none";
+                    } else {
+                        item1.style.backgroundColor = "#f8d7da";
+                        item2.style.backgroundColor = "#f8d7da";
+                        setTimeout(() => {
+                            item1.style.backgroundColor = "";
+                            item2.style.backgroundColor = "";
+                        }, 1000);
+                    }
+
+                    selectedItems.forEach(el => el.classList.remove("selected"));
+                    selectedItems = [];
+                }
+            }
+
+            document.querySelectorAll(".matching-item").forEach(item => {
+                item.addEventListener("click", () => selectMatchingItem(item));
+            });
+        }
+    </script> <button onclick="startQuiz()">Bắt đầu kiểm tra</button>
+
+<div id="quiz-section">
+    <div id="quiz-card" class="quiz-card"></div>
+    <input id="quiz-input" type="text" placeholder="Nhập từ tiếng Anh" onkeypress="handleEnter(event)" />
+    <button onclick="checkAnswer()">Kiểm tra</button>
+    <p id="quiz-feedback"></p>
+</div>
+
+<script>
+    let currentQuizIndex = 0;
+
+    function startQuiz() {
+        document.getElementById("flashcard-section").style.display = "none";
+        document.getElementById("quiz-section").style.display = "block";
+        showQuiz();
+    }
+
+    function showQuiz() {
+        const quizCard = document.getElementById("quiz-card");
+        const quizInput = document.getElementById("quiz-input");
+        const feedback = document.getElementById("quiz-feedback");
+
+        quizCard.innerText = words[currentQuizIndex].meaning;
+        quizInput.value = "";
+        feedback.innerText = "";
+    }
+
+    function checkAnswer() {
+        const userInput = document.getElementById("quiz-input").value.trim().toLowerCase();
+        const correctAnswer = words[currentQuizIndex].word.toLowerCase();
+        const feedback = document.getElementById("quiz-feedback");
+
+        if (userInput === correctAnswer) {
+            feedback.style.color = "green";
+            feedback.innerText = "Chính xác!";
+            currentQuizIndex = (currentQuizIndex + 1) % words.length;
+            setTimeout(showQuiz, 1000);
+        } else {
+            feedback.style.color = "red";
+            feedback.innerText = `Sai rồi! Đáp án đúng là "${words[currentQuizIndex].word}".`;
+        }
+    }
+    function handleEnter(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    }
+</script>
+</body>
+</html>
